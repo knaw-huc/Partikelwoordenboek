@@ -1,0 +1,42 @@
+version: '2'
+
+services:
+  raa-elastic:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.1
+    container_name: raa-elastic
+    restart: unless-stopped
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+    volumes:
+      - /data/products/raa/index:/usr/share/elasticsearch/data
+    networks:
+      - traefik-public
+
+
+  raa-app:
+    image: registry.diginfra.net/tsd/raa-browser-app:0.9
+    container_name: raa-app
+    restart: unless-stopped
+    environment:
+      ES_URI: raa-elastic
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.emlo-app.loadbalancer.server.port=5000"
+      - "traefik.http.routers.emlo-app.entrypoints=http"
+      - "traefik.http.routers.emlo-app.rule=Host(`raa.sd.di.huc.knaw.nl`)"
+    expose:
+      - 5000
+    networks:
+      - traefik-public
+
+
+networks:
+  traefik-public:
+    external: true
+
+
+
+
+
+

@@ -1,0 +1,30 @@
+version: '2'
+
+services:
+  raa-elastic:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.1
+    container_name: raa-elastic
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+    volumes:
+      - /Users/robzeeman/Documents/DI_code/raa/index:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    networks:
+      - robz
+
+  raa-app:
+    image: registry.diginfra.net/tsd/raa-browser-app:0.9.3
+    ports:
+      - 80:5000
+    environment:
+      ES_URI: raa-elastic
+      ES_PORT: 9200
+    networks:
+      - robz
+
+networks:
+  robz:
+    external: false
+
