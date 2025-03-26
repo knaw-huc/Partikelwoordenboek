@@ -49,26 +49,10 @@ def browse():
     ret_struc = index.browse(struc["page"], struc["page_length"], struc["searchvalues"])
     return jsonify(ret_struc)
 
-@app.route("/browse_person",  methods=['POST', 'GET'])
-def browse_persons():
-    struc = request.get_json()
-    ret_struc = index.browse_persons(struc["page"], struc["page_length"], struc["searchvalues"])
-    return jsonify(ret_struc)
 
-@app.route("/browse_aanstelling",  methods=['POST', 'GET'])
-def browse_letters():
-    struc = request.get_json()
-    ret_struc = index.browse_aanstelling(struc["page"], struc["page_length"], struc["searchvalues"])
-    return jsonify(ret_struc)
-
-@app.route("/get_instelling_detail/<id>", methods=['GET'])
-def get_location_detail(id):
-    ret_struc = index.get_instelling_details(id)
-    return jsonify(ret_struc)
-
-@app.route("/get_person_detail/<id>", methods=['GET'])
-def get_person_detail(id):
-    ret_struc = index.get_person_details(id)
+@app.route("/get_detail/<id>", methods=['GET'])
+def get_detail(id):
+    ret_struc = index.get_details(id)
     return jsonify(ret_struc)
 
 #Start main program

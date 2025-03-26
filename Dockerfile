@@ -1,7 +1,7 @@
-FROM node:alpine as frontend-build
+FROM node:alpine AS frontend-build
 
 WORKDIR /app
-COPY ./frontend/ /app
+COPY ./browser/ /app
 RUN npm install && npm run build
 
 FROM python:3.11-slim

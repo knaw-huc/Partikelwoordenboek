@@ -8,8 +8,8 @@ import math
 class Index:
     def __init__(self, config):
         self.config = config
-        #self.client = Elasticsearch([{"host": self.config["url"], "port": self.config["port"]}])
-        self.client = Elasticsearch()
+        self.client = Elasticsearch([{"host": self.config["url"], "port": self.config["port"]}])
+        #self.client = Elasticsearch()
 
     def no_case(self, str_in):
         str = str_in.strip()
@@ -118,6 +118,18 @@ class Index:
             ret_array.append(buffer)
         return ret_array
 
+    def get_details(self, id):
+        query = {
+            "match": {"ID.keyword": id}
+        }
+
+        response = self.client.search(index="partikel", body={
+            "query": query,
+            "_source": ["ID", "hoofdingang", "ingang", "literatuur", "intonatie", "ongeving", "subtype"]})
+
+        return {"amount": response["hits"]["total"]["value"],
+                "items": [item["_source"] for item in response["hits"]["hits"]]}
+
     def browse(self, page, length, search_values):
         int_page = int(page)
         start = (int_page - 1) * length
@@ -137,7 +149,7 @@ class Index:
             "query": query,
             "size": length,
             "from": start,
-            "_source": ["id", "ingang", "omgeving"],
+            "_source": ["ID", "ingang", "omgeving", "intonatie"],
             "sort": [
                 {"ingang.keyword": {"order": "asc"}}
             ]

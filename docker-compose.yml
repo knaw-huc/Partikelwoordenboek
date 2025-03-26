@@ -1,30 +1,31 @@
 version: '2'
 
 services:
-  raa-elastic:
+  pwb-elastic:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.10.1
-    container_name: raa-elastic
+    container_name: pwb-elastic
     restart: unless-stopped
     environment:
       - discovery.type=single-node
       - xpack.security.enabled=false
     volumes:
-      - /data/products/raa/index:/usr/share/elasticsearch/data
+      - /data/products/partikels/index:/usr/share/elasticsearch/data
+      - /home/robz:/home
     networks:
       - traefik-public
 
 
-  raa-app:
-    image: registry.diginfra.net/tsd/raa-browser-app:0.9
-    container_name: raa-app
+  pwb-app:
+    image: registry.diginfra.net/tsd/partikelwb:0.9
+    container_name: pwb-app
     restart: unless-stopped
     environment:
-      ES_URI: raa-elastic
+      ES_URI: pwb-elastic
     labels:
       - "traefik.enable=true"
-      - "traefik.http.services.emlo-app.loadbalancer.server.port=5000"
-      - "traefik.http.routers.emlo-app.entrypoints=http"
-      - "traefik.http.routers.emlo-app.rule=Host(`raa.sd.di.huc.knaw.nl`)"
+      - "traefik.http.services.pwb-app.loadbalancer.server.port=5000"
+      - "traefik.http.routers.pwb-app.entrypoints=http"
+      - "traefik.http.routers.pwb-app.rule=Host(`pwb.sd.di.huc.knaw.nl`)"
     expose:
       - 5000
     networks:

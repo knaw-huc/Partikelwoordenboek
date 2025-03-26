@@ -692,4 +692,10 @@ padding-right: 4px;
 
 .resultName{
 font-weight: bold;
+cursor: pointer;
+}
+
+.subtype{
+padding: 0 0 20px 6px;
+border-bottom: #999999 solid 1px;
 }

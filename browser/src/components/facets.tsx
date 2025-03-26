@@ -24,6 +24,24 @@ export default function Facets({registerFacet, unregisterFacet, setFacet, search
                    flex={true}
                    usePost={true}
                    searchValues={searchValues}/>
+        <ListFacet registerFacet={registerFacet}
+                   unregisterFacet={unregisterFacet}
+                   setFacet={setFacet}
+                   name="Functie"
+                   field="subtype.functie"
+                   url={FACET_URL}
+                   flex={true}
+                   usePost={true}
+                   searchValues={searchValues}/>
+        <ListFacet registerFacet={registerFacet}
+                   unregisterFacet={unregisterFacet}
+                   setFacet={setFacet}
+                   name="Gebruik"
+                   field="subtype.gebruik"
+                   url={FACET_URL}
+                   flex={true}
+                   usePost={true}
+                   searchValues={searchValues}/>
 
     </>;
 }

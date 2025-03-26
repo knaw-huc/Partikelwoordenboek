@@ -23,7 +23,7 @@ import './assets/css/style.css';
 const title = 'Entiteitenbrowser';
 const shortTitle = 'Entiteitenbrowser';
 const searchLoader = createSearchLoader(searchUtils.getSearchObjectFromParams, BASE_URL + '/browse', 30);
-const detailLoader = createDetailLoader(id => BASE_URL + `/detail/${id}`);
+const detailLoader = createDetailLoader(id => BASE_URL + `/get_detail/${id}`);
 
 const pageHeader = <PageHeader/>;
 

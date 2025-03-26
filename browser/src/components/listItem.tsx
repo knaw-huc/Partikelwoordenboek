@@ -10,8 +10,9 @@ export default function ListItem({item}: { item: IResultItem }) {
 
     return (
         <div className="hcResultListDetail">
-            <div className="resultName">{item.ingang}</div>
+            <div className="resultName" onClick={() => {nav("/detail/" + item.ID)}}>{item.ingang}</div>
             <div>{item.omgeving}</div>
+            <div>{item.intonatie}</div>
         </div>
     );
 }
